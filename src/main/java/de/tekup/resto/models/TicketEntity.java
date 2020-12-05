@@ -1,4 +1,4 @@
-package de.tekup.resto.models;
+package de.tekup.resto.Models;
 
 public class TicketEntity {
 
