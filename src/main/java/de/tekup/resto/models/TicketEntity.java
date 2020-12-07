@@ -3,10 +3,16 @@ package de.tekup.resto.Models;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,11 +39,11 @@ public class TicketEntity {
 	@JoinColumn(name = "numero_table", nullable = false)
 	@JsonIgnore
 	private TableEntity table;
-//
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonIgnore
 	private ClientEntity client;
-//
+
 	@ManyToMany
 	@JsonIgnore
 	private List<MetEntity> mets;
