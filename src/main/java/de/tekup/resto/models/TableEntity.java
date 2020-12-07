@@ -1,8 +1,14 @@
 package de.tekup.resto.Models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -14,13 +20,18 @@ import lombok.Setter;
 public class TableEntity {
 
 	@Id
-	@Column(name = "numero_table")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "numero_table", nullable = false, unique = true)
 	private int numeroTable;
-	@Column(name = "nb_couvert")
-	private int nbCouvert;
+	@Column(name = "nb_couvert_table")
+	private int nbCouvertTable;
 	@Column(name = "type")
 	private String type;
 	@Column(name = "supplement")
 	private float supplement; 
+	
+	@OneToMany(mappedBy = "numero",cascade = CascadeType.REMOVE)
+	List<TicketEntity> ticket;
+
 	
 }

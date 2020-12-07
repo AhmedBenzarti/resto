@@ -15,10 +15,11 @@ import lombok.Setter;
 
 @Getter@Setter
 @Entity
-//@Table(name="ticket")
+@Table(name="ticket")
 public class TicketEntity {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "numero")
 	private int numero;
 	@Column(name = "date")
@@ -33,12 +34,12 @@ public class TicketEntity {
 //	@JsonIgnore
 //	private TableEntity table;
 //
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JsonIgnore
-//	private ClientEntity client;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonIgnore
+	private ClientEntity client;
 //
-//	@ManyToMany
-//	@JsonIgnore
-//	private List<MetEntity> mets;
+	@ManyToMany
+	@JsonIgnore
+	private List<MetEntity> mets;
 	
 }
