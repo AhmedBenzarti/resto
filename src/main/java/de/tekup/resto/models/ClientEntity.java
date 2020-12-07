@@ -13,10 +13,10 @@ import lombok.Setter;
 
 @Getter@Setter
 @Entity	
-@Table(name="client")
+//@Table(name="client")
 public class ClientEntity {
 
-	@Id
+//	@Id
 	@Column(name = "nom")
 	private String nomClient;
 	@Column(name="prenom")

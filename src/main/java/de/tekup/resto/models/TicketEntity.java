@@ -15,30 +15,30 @@ import lombok.Setter;
 
 @Getter@Setter
 @Entity
-@Table(name="client")
+//@Table(name="ticket")
 public class TicketEntity {
 	
 	@Id
+	@Column(name = "numero")
 	private int numero;
+	@Column(name = "date")
 	private Date date;
+	@Column(name = "nbcouvert")
 	private int nbCouvert;
+	@Column(name = "addition")
 	private float addition;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "num_table", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private TableEntity table;
-
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "nom_client", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private ClientEntity client;
-
-	@ManyToMany
-	@JoinTable(name = "WorkedIn")
-	@JsonIgnore
-	private List<MetEntity> mets;
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JoinColumn(name = "num_table", nullable = false)
+//	@JsonIgnore
+//	private TableEntity table;
+//
+//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+//	@JsonIgnore
+//	private ClientEntity client;
+//
+//	@ManyToMany
+//	@JsonIgnore
+//	private List<MetEntity> mets;
 	
 }

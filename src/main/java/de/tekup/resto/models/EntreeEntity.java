@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter@Setter
 @Entity
-@Table(name="entree")
+//@Table(name="entree")
 public class EntreeEntity extends MetEntity{
 
 }
