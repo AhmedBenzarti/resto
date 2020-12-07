@@ -29,10 +29,10 @@ public class TicketEntity {
 	@Column(name = "addition")
 	private float addition;
 
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JoinColumn(name = "num_table", nullable = false)
-//	@JsonIgnore
-//	private TableEntity table;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "numero_table", nullable = false)
+	@JsonIgnore
+	private TableEntity table;
 //
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JsonIgnore

@@ -27,7 +27,7 @@ public class ClientEntity {
 	
 	@Column(name = "nom_client")
 	private String nomClient;
-	@Column(name="prenom")
+	@Column(name="prenom_client")
 	private String prenomClient;
 	@Column(name="dateNais")
 	private Date dateNaissance;

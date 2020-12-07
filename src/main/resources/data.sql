@@ -1,0 +1,1 @@
+insert into client (id_client, courriel, date_nais, nom_client, prenom_client, telephone) values (1, 'ffs', '09-07-1996', 'benzarti','ahmed','55299490');
