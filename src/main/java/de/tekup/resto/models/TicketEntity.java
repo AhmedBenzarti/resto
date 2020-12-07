@@ -1,13 +1,9 @@
 package de.tekup.resto.Models;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -39,5 +35,10 @@ public class TicketEntity {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private ClientEntity client;
+
+	@ManyToMany
+	@JoinTable(name = "WorkedIn")
+	@JsonIgnore
+	private List<MetEntity> mets;
 	
 }
