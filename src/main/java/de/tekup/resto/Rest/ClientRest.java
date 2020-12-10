@@ -3,6 +3,7 @@ package de.tekup.resto.Rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class ClientRest {
 		super();
 		this.clientService = service;
 	}
-
+//	@PreAuthorize("hasAnyAuthority('USER')")
 	@GetMapping(path="/api/clients")
 	public List<ClientEntity> getAll(){
 		return clientService.getAllClientEntities();
