@@ -37,5 +37,5 @@ public class ClientEntity {
 	private String telephone;
 	
 	@OneToMany(mappedBy = "numero",cascade = CascadeType.REMOVE)
-	List<TicketEntity> ticket;
+	List<TicketEntity> tickets;
 }

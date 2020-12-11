@@ -22,8 +22,7 @@ import lombok.Setter;
 @Getter@Setter
 @Entity
 @Table(name="ticket")
-public class TicketEntity {
-	
+public class TicketEntity {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "numero")
@@ -41,6 +40,7 @@ public class TicketEntity {
 	private TableEntity table;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "id_client", nullable = false)
 	@JsonIgnore
 	private ClientEntity client;
 

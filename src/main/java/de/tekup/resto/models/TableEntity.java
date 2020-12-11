@@ -29,7 +29,7 @@ public class TableEntity {
 	private float supplement; 
 	
 	@OneToMany(mappedBy = "numero",cascade = CascadeType.REMOVE)
-	List<TicketEntity> ticket;
+	List<TicketEntity> tickets;
 
 	
 }

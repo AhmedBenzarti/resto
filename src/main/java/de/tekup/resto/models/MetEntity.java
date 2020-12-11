@@ -29,6 +29,6 @@ public class MetEntity{
 	private float prix;
 
 	@ManyToMany(mappedBy = "mets", cascade = CascadeType.REMOVE)
-	List<TicketEntity> ticket;
+	List<TicketEntity> tickets;
 
 }

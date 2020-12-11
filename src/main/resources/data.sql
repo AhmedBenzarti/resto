@@ -1,1 +1,12 @@
-insert into client (id_client, courriel, date_nais, nom_client, prenom_client, telephone) values (1, 'ffs', '09-07-1996', 'benzarti','ahmed','55299490');
+INSERT INTO client (`id_client`, `courriel`, `date_nais`, `nom_client`, `prenom_client`, `telephone`) VALUES ('1', 'fsdf', '1998-10-26', 'aaaaa', 'bbbbb', '11111111');
+INSERT INTO client (`id_client`, `courriel`, `date_nais`, `nom_client`, `prenom_client`, `telephone`) VALUES ('2', 'dqds', '1996-03-13', 'bbbb', 'aaaa', '22222222');
+INSERT INTO client (`id_client`, `courriel`, `date_nais`, `nom_client`, `prenom_client`, `telephone`) VALUES ('3', 'zeaqd', '1990-11-22', 'dddd', 'cccc', '33333333');
+INSERT INTO client (`id_client`, `courriel`, `date_nais`, `nom_client`, `prenom_client`, `telephone`) VALUES ('4', 'gdhsfs', '1991-05-17', 'ccccc', 'dddd', '44444444');
+INSERT INTO table_entity (`numero_table`, `nb_couvert_table`, `supplement`, `type`) VALUES ('1', '4', '2', 'aaaa');
+INSERT INTO table_entity (`numero_table`, `nb_couvert_table`, `supplement`, `type`) VALUES ('2', '3', '4', 'bbbb');
+INSERT INTO table_entity (`numero_table`, `nb_couvert_table`, `supplement`, `type`) VALUES ('3', '2', '3', 'cccc');
+INSERT INTO table_entity (`numero_table`, `nb_couvert_table`, `supplement`, `type`) VALUES ('4', '5', '1', 'dddd');
+INSERT INTO ticket (`numero`, `addition`, `date`, `nbcouvert`, `id_client`, `numero_table`) VALUES ('1', '500', '2020-07-09', '4', '1', '20');
+INSERT INTO ticket (`numero`, `addition`, `date`, `nbcouvert`, `id_client`, `numero_table`) VALUES ('2', '400', '2020-09-07', '3', '2', '2');
+INSERT INTO met (`dtype`, `id`, `nom`, `prix`) VALUES ('aaaa', '1', 'aaa', '50');
+INSERT INTO met (`dtype`, `id`, `nom`, `prix`) VALUES ('bbbb', '2', 'bbb', '70');
