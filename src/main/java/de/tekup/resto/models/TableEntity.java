@@ -1,7 +1,6 @@
 package de.tekup.resto.Models;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +26,7 @@ public class TableEntity {
 	@Column(name = "supplement")
 	private float supplement;
 
-	@OneToMany(mappedBy = "numeroTicket")
-	private Collection<TicketEntity> tickets = new ArrayList<>();
+	@OneToMany(mappedBy = "table")
+	private List<TicketEntity> tickets;
 
 }

@@ -1,8 +1,7 @@
 package de.tekup.resto.Models;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class TicketEntity {	
+public class TicketEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idTicket")
@@ -45,6 +44,6 @@ public class TicketEntity {
 
 	@ManyToMany
 	@JsonIgnore
-	private Collection<MetEntity> mets = new ArrayList<>();
-	
+	private List<MetEntity> mets;
+
 }
