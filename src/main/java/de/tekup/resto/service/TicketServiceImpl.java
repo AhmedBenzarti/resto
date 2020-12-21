@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.tekup.resto.Models.ClientEntity;
 import de.tekup.resto.Models.TicketEntity;
 import de.tekup.resto.Repository.TicketRepository;
 

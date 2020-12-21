@@ -35,7 +35,6 @@ public class ClientServiceImpl {
 	public Map<String, Long> getClientFaithful() {
 		List<ClientEntity> clients = clientRepository.findAll();
 		Map<String, Long> map2 = new HashMap<>();
-		
 
 		for (ClientEntity client : clients) {
 			if (map2.containsKey(client.getNomClient())) {

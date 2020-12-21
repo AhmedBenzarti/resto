@@ -1,32 +1,31 @@
 package de.tekup.resto.Models;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter@Setter
+@Data
 @Entity
-@Table(name="ticket")
 public class TicketEntity {	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "numero")
-	private int numero;
+	@Column(name = "idTicket")
+	private int idTicket;
+	@Column(name = "numero_ticket")
+	private int numeroTicket;
 	@Column(name = "date")
 	private Date date;
 	@Column(name = "nbcouvert")
@@ -34,18 +33,18 @@ public class TicketEntity {
 	@Column(name = "addition")
 	private float addition;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "numero_table", nullable = false)
+	@ManyToOne(targetEntity = TableEntity.class)
+	@JoinColumn(name = "numero_table", referencedColumnName = "numero_table", insertable = false, updatable = false)
 	@JsonIgnore
 	private TableEntity table;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id_client", nullable = false)
+	@ManyToOne(targetEntity = ClientEntity.class)
+	@JoinColumn(name = "idClient", referencedColumnName = "idClient", insertable = false, updatable = false)
 	@JsonIgnore
 	private ClientEntity client;
 
 	@ManyToMany
 	@JsonIgnore
-	private List<MetEntity> mets;
+	private Collection<MetEntity> mets = new ArrayList<>();
 	
 }

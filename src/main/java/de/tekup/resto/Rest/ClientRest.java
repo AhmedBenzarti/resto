@@ -26,7 +26,7 @@ public class ClientRest {
 		this.clientService = service;
 	}
 
-	@GetMapping(path = "/clients")
+	@GetMapping(path = "/allClients")
 	public List<ClientEntity> getAll() {
 //		LOGGER.info("all clients : {}",clientService.getAllClients().toString());
 		return clientService.getAllClients();

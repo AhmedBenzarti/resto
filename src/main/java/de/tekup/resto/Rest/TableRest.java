@@ -20,7 +20,7 @@ public class TableRest {
 		this.TableService = service;
 	}
 
-	@GetMapping(path = "/api/Tables")
+	@GetMapping(path = "/api/AllTables")
 	public List<TableEntity> getAll() {
 		return TableService.getAllTables();
 	}

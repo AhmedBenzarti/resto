@@ -6,36 +6,33 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-
-@Getter@Setter
-@Entity	
-@Table(name="client")
+@Data
+@Entity
 public class ClientEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idClient;
-	
+
 	@Column(name = "nom_client")
 	private String nomClient;
-	@Column(name="prenom_client")
+	@Column(name = "prenom_client")
 	private String prenomClient;
-	@Column(name="dateNais")
+	@Column(name = "dateNais")
 	private Date dateNaissance;
-	@Column(name="courriel")
+	@Column(name = "courriel")
 	private String courriel;
-	@Column(name="telephone")
+	@Column(name = "telephone")
 	private String telephone;
-	
-	@OneToMany(mappedBy = "numero",cascade = CascadeType.REMOVE)
-	List<TicketEntity> tickets;
+
+	@OneToMany(targetEntity = TicketEntity.class, mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	private List<TicketEntity> tickets;
 }
