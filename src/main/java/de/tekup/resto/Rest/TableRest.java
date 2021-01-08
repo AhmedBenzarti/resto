@@ -28,9 +28,9 @@ public class TableRest {
 		return TableService.getAllTables();
 	}
 	
-	@GetMapping(path = "/table/getMostBookedTable")
-	public Map<Integer, Long> getMostBookedTable() {
-		return TableService.getMostBookedTable();
+	@GetMapping(path = "/table/plusReserve")
+	public Map<Integer, Long> tablePlusReserve() {
+		return TableService.tablePlusReserve();
 	}
 
 }

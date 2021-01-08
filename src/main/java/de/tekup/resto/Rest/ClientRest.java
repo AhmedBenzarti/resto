@@ -39,7 +39,7 @@ public class ClientRest {
 	}
 
 	@GetMapping(path = "/met/Faithful")
-	public Map<String, Long> platPlusAcheter(@RequestParam  Date dateDebut, @RequestParam  Date dateFin) {
+	public Map<String, List<Integer>> platPlusAcheter(@RequestParam  Date dateDebut, @RequestParam  Date dateFin) {
 		return clientService.platPlusAcheter(dateDebut, dateFin);
 	}
 	
@@ -49,7 +49,7 @@ public class ClientRest {
 	}
 	
 	@GetMapping(path = "/client/ReserveDayPerClient")
-	public List<TicketEntity> getReserveDayPerClient(@RequestParam  String nomClient,@RequestParam  String prenomClient) {
+	public Map<String, List<String>> getReserveDayPerClient(@RequestParam  String nomClient,@RequestParam  String prenomClient) {
 		return clientService.getReserveDayPerClient(nomClient,prenomClient);
 	}
 	
@@ -69,7 +69,7 @@ public class ClientRest {
 	}
 	
 	@GetMapping(path = "/client/revenu/periode")
-	public double revenuParSemaines(@RequestParam  Date dateDebut, @RequestParam  Date dateFin) {
+	public double revenuPeriode(@RequestParam  Date dateDebut, @RequestParam  Date dateFin) {
 		return clientService.revenuPeriode(dateDebut,dateFin);
 	}
 

@@ -35,7 +35,7 @@ public class TableServiceImpl {
 		return tableRepository.findAll();
 	}
 	
-	public Map<Integer, Long> getMostBookedTable() {
+	public Map<Integer, Long> tablePlusReserve() {
 		List<TableEntity> tables = tableRepository.findAll();
 		Map<Integer,Long> getMostBookedTable = new HashMap<>();
 		tables.stream().forEach(tab ->{

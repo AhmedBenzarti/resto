@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -66,32 +67,39 @@ public class ClientServiceImpl {
 		return clientFaithful;
 	}
 
-	public List<TicketEntity> getReserveDayPerClient(String nomClient, String prenomClient) {
+	public Map<String, List<String>> getReserveDayPerClient(String nomClient, String prenomClient) {
 		List<ClientEntity> clients = clientRepository.findAll();
-
 		List<TicketEntity> ticketClient = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		List<Integer> days = new ArrayList<>();
+		Map<String, List<String>> jourPlusReserver = new HashMap<>();
+		List<Integer> dayys = new ArrayList<>();
 		clients.forEach(clt -> {
 
 			if (clt.getNomClient().equals(nomClient) && clt.getPrenomClient().equals(prenomClient)) {
 
 				ticketClient.addAll(clt.getTickets());
+				for (int i = 0; i < ticketClient.size(); i++) {
+					cal.setTime(ticketClient.get(i).getDate());
+					days.add(cal.get(Calendar.DAY_OF_WEEK));
 
-//				LOGGER.info("*********time{}",cal.get(Calendar.DAY_OF_WEEK));
+					dayys.add(days.stream().max(Integer::compare).get());
+					LOGGER.info("MAX : {}", days.stream().max(Integer::compare).get());
+					LOGGER.info("DAY : {}", ticketClient.get(i).getDate().getDay());
+
+					List<String> dayOfWeek = new ArrayList<String>();
+					for (int j = 0; j < dayys.size(); j++) {
+						dayOfWeek.add(getDayOfWeek(dayys.get(j)));
+						jourPlusReserver.put("le jours est ",
+								dayOfWeek.stream().distinct().collect(Collectors.toList()));
+						LOGGER.info("*********MAP {}", jourPlusReserver);
+					}
+
+				}
+//				}
 			}
 		});
-		Calendar cal = Calendar.getInstance();
-		Calendar cal1 = Calendar.getInstance();
-		for (int i = 0; i < ticketClient.size() - 1; i++) {
-			cal.setTime(ticketClient.get(i).getDate());
-			cal1.setTime(ticketClient.get(i + 1).getDate());
-			if (cal.get(Calendar.DAY_OF_WEEK) == cal1.get(Calendar.DAY_OF_WEEK)) {
-				int day = cal.get(Calendar.DAY_OF_WEEK);
-				LOGGER.info("le jours est :{}", day);
-			}
-		}
-		LOGGER.info("client : {}", ticketClient);
-
-		return ticketClient;
+		return jourPlusReserver;
 	}
 
 	public double revenuParMois(String mois) {
@@ -136,33 +144,26 @@ public class ClientServiceImpl {
 		List<TicketEntity> tickets = ticketRepository.findAll();
 		double sum = 0;
 		for (int i = 0; i < tickets.size(); i++) {
-			if (tickets.get(i).getDate().after(dateDebut) && tickets.get(i).getDate().after(dateFin)) {
+			if (tickets.get(i).getDate().after(dateDebut) && tickets.get(i).getDate().before(dateFin)) {
 				sum += tickets.get(i).getAddition();
 			}
 		}
 		return sum;
 	}
 
-	public Map<String, Long> platPlusAcheter(Date dateDebut, Date dateFin) {
+	public Map<String, List<Integer>> platPlusAcheter(Date dateDebut, Date dateFin) {
 		List<MetEntity> mets = metRepository.findAll();
-		Map<String, Long> nomPlat = new HashMap<>();
-		List<Integer> list = new ArrayList<>();
-
-		LOGGER.info("METS : {}", mets);
+		Map<String, List<Integer>> nomPlat = new HashMap<>();
+		List<Integer> idsPlat = new ArrayList<>();
+		List<Integer> ids = new ArrayList<>();
 		mets.stream().forEach(met -> {
-
-			for (int i = 0; i < met.getTickets().size(); i++) {
-				if (met.getTickets().get(i).getDate().after(dateDebut)
-						&& met.getTickets().get(i).getDate().before(dateFin)) {
-					LOGGER.info("met : {}", met);
-
-					list.add(met.getPlat().getId());
-					LOGGER.info("list {}",list);
-					if (Collections.frequency(list, met.getPlat().getId()) == met.getPlat().getId()) {
-						nomPlat.put("l'id du plat est :", (long) met.getPlat().getId());
-					}
+			met.getTickets().stream().forEach(tick -> {
+				if (tick.getDate().compareTo(dateDebut) * dateFin.compareTo(tick.getDate()) >= 0) {
+					idsPlat.add(met.getPlat().getId());
+					ids.add(idsPlat.stream().max(Integer::compare).get());
+					nomPlat.put("l' id du plat est ", ids.stream().distinct().collect(Collectors.toList()));
 				}
-			}
+			});
 		});
 		return nomPlat;
 	}
@@ -194,4 +195,31 @@ public class ClientServiceImpl {
 		return dayOfWeek;
 	}
 
+	private String getDayOfWeek(int value) {
+		String day = "";
+		switch (value) {
+		case 1:
+			day = "Sunday";
+			break;
+		case 2:
+			day = "Monday";
+			break;
+		case 3:
+			day = "Tuesday";
+			break;
+		case 4:
+			day = "Wednesday";
+			break;
+		case 5:
+			day = "Thursday";
+			break;
+		case 6:
+			day = "Friday";
+			break;
+		case 7:
+			day = "Saturday";
+			break;
+		}
+		return day;
+	}
 }
