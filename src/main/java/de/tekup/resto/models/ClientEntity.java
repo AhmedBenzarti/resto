@@ -13,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = {"tickets"})
 @Entity
 public class ClientEntity {
 
@@ -24,12 +26,16 @@ public class ClientEntity {
 
 	@Column(name = "nom_client")
 	private String nomClient;
+	
 	@Column(name = "prenom_client")
 	private String prenomClient;
+	
 	@Column(name = "dateNais")
 	private Date dateNaissance;
+	
 	@Column(name = "courriel")
 	private String courriel;
+	
 	@Column(name = "telephone")
 	private String telephone;
 

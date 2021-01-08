@@ -15,20 +15,24 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = {"table","client","mets"})
 @Entity
 public class TicketEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idTicket")
-	private int idTicket;
 	@Column(name = "numero_ticket")
 	private int numeroTicket;
+	
 	@Column(name = "date")
 	private Date date;
+	
 	@Column(name = "nbcouvert")
 	private int nbCouvert;
+	
 	@Column(name = "addition")
 	private float addition;
 
@@ -42,8 +46,10 @@ public class TicketEntity {
 	@JsonIgnore
 	private ClientEntity client;
 
-	@ManyToMany
-	@JsonIgnore
+	@ManyToMany(mappedBy = "tickets")
 	private List<MetEntity> mets;
+	
+	
+	
 
 }

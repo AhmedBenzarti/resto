@@ -5,16 +5,22 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = {"plat","dessert","entree","tickets"})
 @Entity
 public class MetEntity {
 
@@ -28,19 +34,20 @@ public class MetEntity {
 	@Column(name = "prix")
 	private float prix;
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "platId")
 	private PlatEntity plat;
 	
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dessertId")
-	private PlatEntity dessert;
+	private DesertEntity dessert;
 	
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entreeId")
-	private PlatEntity entree;
+	private EntreeEntity entree;
 	
-	@ManyToMany(mappedBy = "mets", cascade = CascadeType.REMOVE)
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JsonIgnore
 	private List<TicketEntity> tickets;
 
 }
