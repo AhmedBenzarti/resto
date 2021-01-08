@@ -69,34 +69,24 @@ public class ClientServiceImpl {
 
 	public Map<String, List<String>> getReserveDayPerClient(String nomClient, String prenomClient) {
 		List<ClientEntity> clients = clientRepository.findAll();
-		List<TicketEntity> ticketClient = new ArrayList<>();
 		Calendar cal = Calendar.getInstance();
 		List<Integer> days = new ArrayList<>();
 		Map<String, List<String>> jourPlusReserver = new HashMap<>();
-		List<Integer> dayys = new ArrayList<>();
+		List<Integer> dayReserved = new ArrayList<>();
+
 		clients.forEach(clt -> {
-
 			if (clt.getNomClient().equals(nomClient) && clt.getPrenomClient().equals(prenomClient)) {
-
-				ticketClient.addAll(clt.getTickets());
-				for (int i = 0; i < ticketClient.size(); i++) {
-					cal.setTime(ticketClient.get(i).getDate());
+				clt.getTickets().stream().forEach(tick -> {
+					cal.setTime(tick.getDate());
 					days.add(cal.get(Calendar.DAY_OF_WEEK));
-
-					dayys.add(days.stream().max(Integer::compare).get());
-					LOGGER.info("MAX : {}", days.stream().max(Integer::compare).get());
-					LOGGER.info("DAY : {}", ticketClient.get(i).getDate().getDay());
-
+					dayReserved.add(days.stream().max(Integer::compare).get());
 					List<String> dayOfWeek = new ArrayList<String>();
-					for (int j = 0; j < dayys.size(); j++) {
-						dayOfWeek.add(getDayOfWeek(dayys.get(j)));
+					for (int j = 0; j < dayReserved.size(); j++) {
+						dayOfWeek.add(getDayOfWeek(dayReserved.get(j)));
 						jourPlusReserver.put("le jours est ",
 								dayOfWeek.stream().distinct().collect(Collectors.toList()));
-						LOGGER.info("*********MAP {}", jourPlusReserver);
 					}
-
-				}
-//				}
+				});
 			}
 		});
 		return jourPlusReserver;
@@ -156,6 +146,7 @@ public class ClientServiceImpl {
 		Map<String, List<Integer>> nomPlat = new HashMap<>();
 		List<Integer> idsPlat = new ArrayList<>();
 		List<Integer> ids = new ArrayList<>();
+		
 		mets.stream().forEach(met -> {
 			met.getTickets().stream().forEach(tick -> {
 				if (tick.getDate().compareTo(dateDebut) * dateFin.compareTo(tick.getDate()) >= 0) {
