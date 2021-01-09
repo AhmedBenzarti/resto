@@ -27,10 +27,5 @@ public class TableRest {
 	public List<TableEntity> getAll() {
 		return TableService.getAllTables();
 	}
-	
-	@GetMapping(path = "/table/plusReserve")
-	public Map<Integer, Long> tablePlusReserve() {
-		return TableService.tablePlusReserve();
-	}
 
 }

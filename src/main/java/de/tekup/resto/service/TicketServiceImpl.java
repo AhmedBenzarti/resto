@@ -1,8 +1,6 @@
 package de.tekup.resto.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,24 +28,6 @@ public class TicketServiceImpl {
 
 	public List<TicketEntity> getAllTickets() {
 		return ticketRepository.findAll();
-	}
-
-	public Map<String, Long> getClientFaithful() {
-		List<TicketEntity> tickets = ticketRepository.findAll();
-		Map<String, Long> map2 = new HashMap<>();
-
-		for (TicketEntity ticket : tickets) {
-			if (map2.containsKey(ticket.getClient())) {
-				LOGGER.info("client : {}", ticket.getClient());
-				map2.put(ticket.getClient().getNomClient(), map2.get(ticket.getClient()) + 1);
-			} else {
-				LOGGER.info("client : {}", ticket.getClient());
-				map2.put(ticket.getClient().getNomClient(), 1L);
-			}
-		}
-		LOGGER.info("map : {}", map2);
-		return map2;
-
 	}
 
 }

@@ -34,17 +34,4 @@ public class TableServiceImpl {
 	public List<TableEntity> getAllTables() {
 		return tableRepository.findAll();
 	}
-	
-	public Map<Integer, Long> tablePlusReserve() {
-		List<TableEntity> tables = tableRepository.findAll();
-		Map<Integer,Long> getMostBookedTable = new HashMap<>();
-		tables.stream().forEach(tab ->{
-			if(tab.getTickets().size()==tables.stream().mapToInt(emp -> emp.getTickets().size()).max().getAsInt()) {
-				getMostBookedTable.put(tab.getNumeroTable(), (long) tables.stream().mapToInt(emp -> emp.getTickets().size()).max().getAsInt());
-			}
-		});
-		LOGGER.info("clientFaithful : {}",getMostBookedTable);
-		return getMostBookedTable;
-	}
-
 }
