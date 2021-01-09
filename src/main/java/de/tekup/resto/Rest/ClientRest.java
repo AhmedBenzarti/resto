@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.tekup.resto.Models.ClientEntity;
-import de.tekup.resto.service.ClientServiceImpl;
+import de.tekup.resto.service.serviceImpl.ClientServiceImpl;
 
 @RestController	
 @RequestMapping("api")

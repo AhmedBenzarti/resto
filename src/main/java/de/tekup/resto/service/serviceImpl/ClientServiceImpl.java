@@ -1,4 +1,4 @@
-package de.tekup.resto.service;
+package de.tekup.resto.service.serviceImpl;
 
 import java.util.List;
 

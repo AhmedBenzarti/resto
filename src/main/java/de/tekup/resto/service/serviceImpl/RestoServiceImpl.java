@@ -1,7 +1,5 @@
-package de.tekup.resto.service;
+package de.tekup.resto.service.serviceImpl;
 
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
@@ -26,9 +24,10 @@ import de.tekup.resto.Repository.ClientRepository;
 import de.tekup.resto.Repository.MetRepository;
 import de.tekup.resto.Repository.TableRepository;
 import de.tekup.resto.Repository.TicketRepository;
+import de.tekup.resto.service.RestoService;
 
 @Service
-public class RestoServiceImpl {
+public class RestoServiceImpl implements RestoService {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(ClientServiceImpl.class);
 
@@ -53,16 +52,17 @@ public class RestoServiceImpl {
 						(long) clients.stream().mapToInt(emp -> emp.getTickets().size()).max().getAsInt());
 			}
 		});
-		LOGGER.info("clientFaithful : {}", clientFaithful);
+		LOGGER.info("client plus fidele : {}", clientFaithful);
 		return clientFaithful;
 	}
 
-	public Map<String, List<String>> getReserveDayPerClient(String nomClient, String prenomClient) {
+	public List<String> getReserveDayPerClient(String nomClient, String prenomClient) {
 		List<ClientEntity> clients = clientRepository.findAll();
 		Calendar cal = Calendar.getInstance();
 		List<Integer> days = new ArrayList<>();
-		Map<String, List<String>> jourPlusReserver = new HashMap<>();
+		List<String> jourPlusReserver = new ArrayList<>();
 		List<Integer> dayReserved = new ArrayList<>();
+		List<String> dayOfWeek = new ArrayList<String>();
 		try {
 			clients.forEach(clt -> {
 				if (clt.getNomClient().equals(nomClient) && clt.getPrenomClient().equals(prenomClient)) {
@@ -70,11 +70,8 @@ public class RestoServiceImpl {
 						cal.setTime(tick.getDate());
 						days.add(cal.get(Calendar.DAY_OF_WEEK));
 						dayReserved.add(days.stream().max(Integer::compare).get());
-						List<String> dayOfWeek = new ArrayList<String>();
 						for (int j = 0; j < dayReserved.size(); j++) {
 							dayOfWeek.add(getDayOfWeek(dayReserved.get(j)));
-							jourPlusReserver.put("le jours est ",
-									dayOfWeek.stream().distinct().collect(Collectors.toList()));
 						}
 					});
 				}
@@ -82,6 +79,7 @@ public class RestoServiceImpl {
 		} catch (DateTimeParseException e) {
 			LOGGER.error(e.getMessage());
 		}
+		jourPlusReserver.addAll(dayOfWeek.stream().distinct().collect(Collectors.toList()));
 		return jourPlusReserver;
 	}
 
@@ -94,26 +92,9 @@ public class RestoServiceImpl {
 						(long) tables.stream().mapToInt(emp -> emp.getTickets().size()).max().getAsInt());
 			}
 		});
-		LOGGER.info("clientFaithful : {}", getMostBookedTable);
+		LOGGER.info("table plus reserve : {}", getMostBookedTable);
 		return getMostBookedTable;
 	}
-
-//	public Map<String, Long> getClientFaithful() {
-//		List<TicketEntity> tickets = ticketRepository.findAll();
-//		Map<String, Long> map2 = new HashMap<>();
-//
-//		for (TicketEntity ticket : tickets) {
-//			if (map2.containsKey(ticket.getClient())) {
-//				LOGGER.info("client 1: {}", ticket.getClient());
-//				map2.put(ticket.getClient().getNomClient(), map2.get(ticket.getClient()) + 1);
-//			} else {
-//				LOGGER.info("client : {}", ticket.getClient());
-//				map2.put(ticket.getClient().getNomClient(), 1L);
-//			}
-//		}
-//		LOGGER.info("map : {}", map2);
-//		return map2;
-//	}
 
 	public double revenuParSemaine(String debutSemaine) {
 		List<TicketEntity> tickets = ticketRepository.findAll();
@@ -133,7 +114,7 @@ public class RestoServiceImpl {
 				}
 			}
 		} catch (ParseException e) {
-			LOGGER.error("Invalid date {}",e.getMessage());
+			LOGGER.error("Invalid date {}", e.getMessage());
 			e.getMessage();
 		}
 		return sum;
@@ -203,7 +184,7 @@ public class RestoServiceImpl {
 
 			mets.stream().forEach(met -> {
 				met.getTickets().stream().forEach(tick -> {
-					
+
 					if (tick.getDate().compareTo(dateDeb) * dateF.compareTo(tick.getDate()) >= 0) {
 						idsPlat.add(met.getPlat().getId());
 						ids.add(idsPlat.stream().max(Integer::compare).get());
@@ -227,7 +208,7 @@ public class RestoServiceImpl {
 		return dayOfWeek;
 	}
 
-	private String getDayOfWeek(int value) {
+	private static String getDayOfWeek(int value) {
 		String day = "";
 		switch (value) {
 		case 1:

@@ -1,7 +1,5 @@
 package de.tekup.resto.Rest;
 
-import java.sql.Date;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.tekup.resto.service.RestoServiceImpl;
+import de.tekup.resto.service.serviceImpl.RestoServiceImpl;
 
 @RestController	
 @RequestMapping("api/resto")
@@ -31,15 +29,10 @@ public class RestoRest {
 	}
 	
 	@GetMapping(path = "/ReserveDayPerClient")
-	public Map<String, List<String>> getReserveDayPerClient(@RequestParam  String nomClient,@RequestParam  String prenomClient) {
+	public List<String> getReserveDayPerClient(@RequestParam  String nomClient,@RequestParam  String prenomClient) {
 		return restoService.getReserveDayPerClient(nomClient,prenomClient);
 	}
 	
-//	@GetMapping(path = "/client/fidele")
-//	public Map<String, Long> getClientFaithful() {
-//		return restoService.getClientFaithful();
-//	}
-//	
 	@GetMapping(path = "/table/plusReserve")
 	public Map<Integer, Long> tablePlusReserve() {
 		return restoService.tablePlusReserve();

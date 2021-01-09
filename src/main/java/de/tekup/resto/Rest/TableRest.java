@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.tekup.resto.Models.TableEntity;
-import de.tekup.resto.service.TableServiceImpl;
+import de.tekup.resto.service.serviceImpl.TableServiceImpl;
 
 @RestController
 @RequestMapping("api")

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.tekup.resto.Models.TicketEntity;
-import de.tekup.resto.service.TicketServiceImpl;
+import de.tekup.resto.service.serviceImpl.TicketServiceImpl;
 
 @RestController
 public class TicketRest {
