@@ -27,11 +27,18 @@ public class TicketRequestDTO {
 	private int nbCouvert;
 
 	private float addition;
-
-	private TableEntity table;
-
-	private ClientEntity client;
-
+	
+	private List<TableEntity> table ;
+	
+	public List<TableEntity> getTable() {
+		return table.stream().map(d -> mapper.map(d, TableEntity.class)).collect(Collectors.toList());
+	}
+	
+	private List<ClientEntity> client ;
+	
+	public List<ClientEntity> getClient() {
+		return client.stream().map(d -> mapper.map(d, ClientEntity.class)).collect(Collectors.toList());
+	}
 	private List<MetRequestDTO> mets ;
 	
 	public List<MetEntity> getMets() {

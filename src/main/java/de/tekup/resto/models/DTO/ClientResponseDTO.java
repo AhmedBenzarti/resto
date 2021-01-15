@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientDTO {
-
-	private int idClient;
+public class ClientResponseDTO {
 
 	private String nomClient;
 
@@ -19,8 +17,10 @@ public class ClientDTO {
 
 	private Date dateNaissance;
 
-	private String courriel;
+//	private String courriel;
 
 	private String telephone;
+	
+//	private String tickets;
 
 }

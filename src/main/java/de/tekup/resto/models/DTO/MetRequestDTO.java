@@ -17,12 +17,12 @@ public class MetRequestDTO {
 
 	private float prix;
 
-	private PlatEntity plat;
+	private PlatRequestDTO plat;
 
-	private PlatEntity dessert;
+//	private PlatEntity dessert;
+//
+//	private PlatEntity entree;
 
-	private PlatEntity entree;
-
-	private List<TicketEntity> tickets;
+//	private List<TicketEntity> tickets;
 
 }
