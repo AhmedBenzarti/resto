@@ -26,7 +26,7 @@ public class TicketEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "numero_ticket")
 	private int numeroTicket;
-	
+
 	@Column(name = "date")
 	private Date date;
 	

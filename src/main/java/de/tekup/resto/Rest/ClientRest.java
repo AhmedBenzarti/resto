@@ -4,20 +4,16 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import de.tekup.resto.Models.DTO.ClientReponse;
+import de.tekup.resto.Models.DTO.ClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import de.tekup.resto.Models.ClientEntity;
-import de.tekup.resto.Models.DTO.ClientResponseDTO;
-import de.tekup.resto.Models.DTO.ClientRequestDTO;
 import de.tekup.resto.service.serviceImpl.ClientServiceImpl;
 
 @RestController	
-@RequestMapping("api")
+@RequestMapping("api/client")
 public class ClientRest {
 
 	private ClientServiceImpl clientService;
@@ -28,14 +24,25 @@ public class ClientRest {
 		this.clientService = service;
 	}
 
-	@GetMapping(path = "/client/getAll")
+	@GetMapping(path = "/getAll")
 	public List<ClientEntity> getAll() {
 		return clientService.getAllClients();
 	}
 
-	@PostMapping(path = "/client/create")
-	public ClientResponseDTO ajouterClient(@Valid @RequestBody ClientRequestDTO client) {
+	@PostMapping(path = "/create")
+	public ClientReponse ajouterClient(@Valid @RequestBody ClientRequest client) {
 		return clientService.createClientEntity(client);
+	}
+
+	@PutMapping("/modify/{id}")
+	public ClientReponse modifyClient(@PathVariable("id") int id, @RequestBody ClientRequest newClient) {
+		return clientService.modifyClientEntity(id, newClient);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ClientReponse deleteClientById(@PathVariable("id")int id)
+	{
+		return clientService.deleteClientEntityById(id);
 	}
 
 }

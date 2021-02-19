@@ -43,6 +43,7 @@ public class RestoServiceImpl implements RestoService {
 	@Autowired
 	private TableRepository tableRepository;
 
+	@Override
 	public Map<String, Long> clientPlusFidele() {
 		List<ClientEntity> clients = clientRepository.findAll();
 		Map<String, Long> clientFaithful = new HashMap<>();
@@ -56,6 +57,7 @@ public class RestoServiceImpl implements RestoService {
 		return clientFaithful;
 	}
 
+	@Override
 	public List<String> getReserveDayPerClient(String nomClient, String prenomClient) {
 		List<ClientEntity> clients = clientRepository.findAll();
 		Calendar cal = Calendar.getInstance();
@@ -83,6 +85,7 @@ public class RestoServiceImpl implements RestoService {
 		return jourPlusReserver;
 	}
 
+	@Override
 	public Map<Integer, Long> tablePlusReserve() {
 		List<TableEntity> tables = tableRepository.findAll();
 		Map<Integer, Long> getMostBookedTable = new HashMap<>();
@@ -96,6 +99,7 @@ public class RestoServiceImpl implements RestoService {
 		return getMostBookedTable;
 	}
 
+	@Override
 	public double revenuParSemaine(String debutSemaine) {
 		List<TicketEntity> tickets = ticketRepository.findAll();
 		java.util.Date dateSem;
@@ -120,6 +124,7 @@ public class RestoServiceImpl implements RestoService {
 		return sum;
 	}
 
+	@Override
 	public double revenuParMois(String mois) {
 		List<TicketEntity> tickets = ticketRepository.findAll();
 		double sum = 0;
@@ -131,6 +136,7 @@ public class RestoServiceImpl implements RestoService {
 		return sum / 12;
 	}
 
+	@Override
 	public double revenuParDay(String Day) {
 		List<TicketEntity> tickets = ticketRepository.findAll();
 		int dayOfWeek;
@@ -150,6 +156,7 @@ public class RestoServiceImpl implements RestoService {
 		return sum;
 	}
 
+	@Override
 	public double revenuPeriode(String dateDebut, String dateFin) {
 		List<TicketEntity> tickets = ticketRepository.findAll();
 		java.util.Date dateDeb;
@@ -170,6 +177,7 @@ public class RestoServiceImpl implements RestoService {
 		return sum;
 	}
 
+	@Override
 	public List<Integer> platPlusAcheter(String dateDebut, String dateFin) {
 		List<MetEntity> mets = metRepository.findAll();
 		List<Integer> nomPlat = new ArrayList<>();

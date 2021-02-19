@@ -1,5 +1,6 @@
 package de.tekup.resto.Models;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class ClientEntity {
 	private String prenomClient;
 	
 	@Column(name = "dateNais")
-	private Date dateNaissance;
+	private LocalDate dateDeNaissance;
 	
 	@Column(name = "courriel")
 	private String courriel;
@@ -41,4 +42,8 @@ public class ClientEntity {
 
 	@OneToMany(targetEntity = TicketEntity.class, mappedBy = "client", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	private List<TicketEntity> tickets;
+
+	public int getAge() {
+		return LocalDate.now().getYear()-this.getDateDeNaissance().getYear();
+	}
 }

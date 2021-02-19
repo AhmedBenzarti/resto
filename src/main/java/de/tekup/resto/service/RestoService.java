@@ -5,20 +5,20 @@ import java.util.Map;
 
 public interface RestoService {
 
-	public Map<String, Long> clientPlusFidele();
+	Map<String, Long> clientPlusFidele();
 
-	public List<String> getReserveDayPerClient(String nomClient, String prenomClient);
+	List<String> getReserveDayPerClient(String nomClient, String prenomClient);
 
-	public Map<Integer, Long> tablePlusReserve();
+	Map<Integer, Long> tablePlusReserve();
 
-	public double revenuParSemaine(String debutSemaine);
+	double revenuParSemaine(String debutSemaine);
 
-	public double revenuParMois(String mois);
+	double revenuParMois(String mois);
 
-	public double revenuParDay(String Day);
+	double revenuParDay(String Day);
 
-	public double revenuPeriode(String dateDebut, String dateFin);
+	double revenuPeriode(String dateDebut, String dateFin);
 
-	public List<Integer> platPlusAcheter(String dateDebut, String dateFin);
+	List<Integer> platPlusAcheter(String dateDebut, String dateFin);
 
 }
