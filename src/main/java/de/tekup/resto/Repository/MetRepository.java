@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.tekup.resto.Models.MetEntity;
 
-public interface MetRepository extends JpaRepository<MetEntity, Integer> {
+public interface MetRepository extends JpaRepository<MetEntity, String> {
 
 }

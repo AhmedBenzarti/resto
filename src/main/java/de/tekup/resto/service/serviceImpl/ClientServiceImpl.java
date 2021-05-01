@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import de.tekup.resto.Models.DTO.ClientReponse;
-import de.tekup.resto.Models.DTO.ClientRequest;
+import de.tekup.resto.Models.DTO.ClientReponseDTO;
+import de.tekup.resto.Models.DTO.ClientRequestDTO;
 import de.tekup.resto.service.ClientService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import de.tekup.resto.Models.ClientEntity;
 import de.tekup.resto.Models.TicketEntity;
 import de.tekup.resto.Repository.ClientRepository;
-import de.tekup.resto.Repository.TableRepository;
 import de.tekup.resto.Repository.TicketRepository;
 
 @Service
@@ -52,26 +51,8 @@ public class ClientServiceImpl implements ClientService {
 		return clientRepository.findAll();
 	}
 
-
-
-//	// update that consider depatrs
-//	public ClientResponseDTO createClientEntity(ClientRequestDTO request) {
-//		ClientEntity client = mapper.map(request, ClientEntity.class);
-//		// save Employee
-//		ClientEntity clientInBase = clientRepository.save(client);
-//		// save ticket
-//		List<TicketEntity> tickets = client.getTickets();
-//
-//		if (tickets != null) {
-//			tickets.forEach(ticket -> ticket.setClient(clientInBase));
-//			ticketRepository.saveAll(tickets);
-//		}
-//
-//		return mapper.map(clientInBase, ClientResponseDTO.class);
-//	}
-
 	@Override
-	public ClientReponse createClientEntity(ClientRequest request) {
+	public ClientReponseDTO createClientEntity(ClientRequestDTO request) {
 		// Mappage entre ClientRequest -> ClientEntity
 		ClientEntity entity = mapper.map(request, ClientEntity.class);
 
@@ -84,11 +65,11 @@ public class ClientServiceImpl implements ClientService {
 				ticket.setClient(newEntity);
 				ticketRepository.save(ticket);
 			}}
-		return mapper.map(newEntity, ClientReponse.class);
+		return mapper.map(newEntity, ClientReponseDTO.class);
 	}
 
 	@Override
-	public ClientReponse modifyClientEntity(int id, ClientRequest newClient) {
+	public ClientReponseDTO modifyClientEntity(int id, ClientRequestDTO newClient) {
 		ClientEntity entity = mapper.map(newClient, ClientEntity.class);
 		ClientEntity oldEntity = clientRepository.findById(id).get();
 		if(newClient.getNom()!=null)
@@ -101,25 +82,25 @@ public class ClientServiceImpl implements ClientService {
 			oldEntity.setCourriel(newClient.getCourriel());
 		if(newClient.getTelephone()!=null)
 			oldEntity.setTelephone(newClient.getTelephone());
-		return mapper.map(clientRepository.save(oldEntity), ClientReponse.class);
+		return mapper.map(clientRepository.save(oldEntity), ClientReponseDTO.class);
 	}
 
 	@Override
-	public ClientReponse getById(int id) {
-		ClientEntity entity = mapper.map(ClientRequest.class, ClientEntity.class);
+	public ClientReponseDTO getById(int id) {
+		ClientEntity entity = mapper.map(ClientRequestDTO.class, ClientEntity.class);
 		Optional<ClientEntity> newEntity = clientRepository.findById(id);
 		if(newEntity.isPresent())
 			entity = newEntity.get();
 		else
 			throw new NoSuchElementException("Client with this id is not found");
-		ClientReponse client = new ClientReponse(entity.getNomClient(),entity.getPrenomClient(),
+		ClientReponseDTO client = new ClientReponseDTO(entity.getNomClient(),entity.getPrenomClient(),
 				entity.getDateDeNaissance(),entity.getCourriel(),entity.getTelephone(),entity.getAge());
-		return mapper.map(client, ClientReponse.class);
+		return mapper.map(client, ClientReponseDTO.class);
 	}
 
 	@Override
-	public ClientReponse deleteClientEntityById(int id) {
-		ClientReponse entity = this.getById(id);
+	public ClientReponseDTO deleteClientEntityById(int id) {
+		ClientReponseDTO entity = this.getById(id);
 		clientRepository.deleteById(id);
 		return entity;
 	}

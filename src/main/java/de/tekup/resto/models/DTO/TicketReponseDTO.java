@@ -4,15 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRequestDTO {
+public class TicketReponseDTO {
 	
-	
-	//private int numero;
+	private int numero;
+	private Date dateTime;
 	private int nbCouvert;
-	private String type;
-	private float supplement;
+	private float addition;
+	//private String clientNom;
+	
+	
 
 }

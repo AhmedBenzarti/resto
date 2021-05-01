@@ -1,15 +1,11 @@
 package de.tekup.resto.service.serviceImpl;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
-import de.tekup.resto.Models.DTO.TicketReponse;
-import de.tekup.resto.Models.DTO.TicketRequest;
+import de.tekup.resto.Models.DTO.TicketReponseDTO;
+import de.tekup.resto.Models.DTO.TicketRequestDTO;
 import de.tekup.resto.Models.MetEntity;
+import de.tekup.resto.Models.TicketEntity;
 import de.tekup.resto.Repository.MetRepository;
+import de.tekup.resto.Repository.TicketRepository;
 import de.tekup.resto.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -17,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.tekup.resto.Models.TicketEntity;
-import de.tekup.resto.Repository.TicketRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -35,13 +33,13 @@ public class TicketServiceImpl implements TicketService {
 	private ModelMapper mapper;
 
 	@Override
-	public TicketEntity saveTicket(TicketEntity table) {
-		return ticketRepository.save(table);
+	public TicketEntity saveTicket(TicketEntity tickets) {
+		return ticketRepository.save(tickets);
 	}
 
 	@Override
-	public List<TicketEntity> saveTickets(List<TicketEntity> tables) {
-		return ticketRepository.saveAll(tables);
+	public List<TicketEntity> saveTickets(List<TicketEntity> tickets) {
+		return ticketRepository.saveAll(tickets);
 	}
 
 	@Override
@@ -50,7 +48,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public TicketReponse createTicketEntity(TicketRequest request) {
+	public TicketReponseDTO createTicketEntity(TicketRequestDTO request) {
 		// Mappage entre TicketRequest -> TicketEntity
 		TicketEntity entity = mapper.map(request, TicketEntity.class);
 
@@ -72,15 +70,15 @@ public class TicketServiceImpl implements TicketService {
 
 			}
 		}
-		return mapper.map(newEntity, TicketReponse.class);
+		return mapper.map(newEntity, TicketReponseDTO.class);
 	}
 
 	@Override
-	public List<TicketReponse> getAllTicketEntities() {
-		List<TicketReponse> listTicketrep = new ArrayList<>();
+	public List<TicketReponseDTO> getAllTicketEntities() {
+		List<TicketReponseDTO> listTicketrep = new ArrayList<>();
 		List<TicketEntity> listEntity=ticketRepository.findAll();
 		for (TicketEntity ticketEntiy : listEntity) {
-			listTicketrep.add(mapper.map(ticketEntiy, TicketReponse.class));
+			listTicketrep.add(mapper.map(ticketEntiy, TicketReponseDTO.class));
 
 		}
 
@@ -89,8 +87,8 @@ public class TicketServiceImpl implements TicketService {
 
 
 	@Override
-	public TicketReponse getTicketEntityById(int numero) {
-		TicketEntity entity = mapper.map(TicketRequest.class, TicketEntity.class);
+	public TicketReponseDTO getTicketEntityById(int numero) {
+		TicketEntity entity = mapper.map(TicketRequestDTO.class, TicketEntity.class);
 		Optional<TicketEntity> newEntity = ticketRepository.findById(numero);
 		if(newEntity.isPresent())
 			entity = newEntity.get();
@@ -98,13 +96,13 @@ public class TicketServiceImpl implements TicketService {
 			throw new NoSuchElementException("Ticket with this id is not found");
 
 
-		TicketReponse ticket = new TicketReponse(entity.getNumeroTicket(),entity.getDate(),entity.getNbCouvert(),
+		TicketReponseDTO ticket = new TicketReponseDTO(entity.getNumeroTicket(),entity.getDate(),entity.getNbCouvert(),
 				entity.getAddition());
-		return mapper.map(ticket, TicketReponse.class);
+		return mapper.map(ticket, TicketReponseDTO.class);
 	}
 
 	@Override
-	public TicketReponse modifyTicketEntity(int numero, TicketRequest newTicket) {
+	public TicketReponseDTO modifyTicketEntity(int numero, TicketRequestDTO newTicket) {
 
 
 		TicketEntity entity = mapper.map(newTicket, TicketEntity.class);
@@ -116,13 +114,13 @@ public class TicketServiceImpl implements TicketService {
 		if(newTicket.getAddition()!=0)
 			oldEntity.setAddition(newTicket.getAddition());
 
-		return mapper.map(ticketRepository.save(oldEntity), TicketReponse.class);
+		return mapper.map(ticketRepository.save(oldEntity), TicketReponseDTO.class);
 
 	}
 
 	@Override
-	public TicketReponse deleteTicketEntityById(int id) {
-		TicketReponse entity = this.getTicketEntityById(id);
+	public TicketReponseDTO deleteTicketEntityById(int id) {
+		TicketReponseDTO entity = this.getTicketEntityById(id);
 		ticketRepository.deleteById(id);
 		return entity;
 	}

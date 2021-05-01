@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableRequestDTO {
+public class TableReponseDTO {
 	
-	
-	//private int numero;
 	private int nbCouvert;
 	private String type;
 	private float supplement;

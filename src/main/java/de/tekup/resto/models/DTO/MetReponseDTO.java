@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MetRequestDTO {
-	
+public class MetReponseDTO {
+
 	private String nom;
 	private float prix;
 	private PlatEntity plat;
 	private EntreeEntity entree;
 	private DesertEntity desert;
-	//private List<TicketRequest> tickets;
 
+	public MetReponseDTO(String nom, float prix) {
+	}
 }

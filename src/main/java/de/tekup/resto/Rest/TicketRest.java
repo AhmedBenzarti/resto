@@ -2,8 +2,8 @@ package de.tekup.resto.Rest;
 
 import java.util.List;
 
-import de.tekup.resto.Models.DTO.TicketReponse;
-import de.tekup.resto.Models.DTO.TicketRequest;
+import de.tekup.resto.Models.DTO.TicketReponseDTO;
+import de.tekup.resto.Models.DTO.TicketRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,22 +30,22 @@ public class TicketRest {
 	}
 
 	@GetMapping("/{numero}")
-	public TicketReponse getTicketById(@PathVariable("numero")int numero) {
+	public TicketReponseDTO getTicketById(@PathVariable("numero")int numero) {
 		return TicketService.getTicketEntityById(numero);
 	}
 
 	@PostMapping("/create")
-	public TicketReponse createTicket(@Valid @RequestBody TicketRequest ticket) {
+	public TicketReponseDTO createTicket(@Valid @RequestBody TicketRequestDTO ticket) {
 		return TicketService.createTicketEntity(ticket);
 	}
 
 	@PutMapping("/modify/{numero}")
-	public TicketReponse modifyTicket(@PathVariable("numero")int numero,@RequestBody TicketRequest newTicket) {
+	public TicketReponseDTO modifyTicket(@PathVariable("numero")int numero, @RequestBody TicketRequestDTO newTicket) {
 		return TicketService.modifyTicketEntity(numero, newTicket);
 	}
 
 	@DeleteMapping("/delete/{numero}")
-	public TicketReponse deleteTicketById(@PathVariable("id")int id) {
+	public TicketReponseDTO deleteTicketById(@PathVariable("id")int id) {
 		return TicketService.deleteTicketEntityById(id);
 	}
 	

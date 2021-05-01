@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import de.tekup.resto.Models.DTO.ClientReponse;
-import de.tekup.resto.Models.DTO.ClientRequest;
+import de.tekup.resto.Models.DTO.ClientReponseDTO;
+import de.tekup.resto.Models.DTO.ClientRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,17 +30,17 @@ public class ClientRest {
 	}
 
 	@PostMapping(path = "/create")
-	public ClientReponse ajouterClient(@Valid @RequestBody ClientRequest client) {
+	public ClientReponseDTO ajouterClient(@Valid @RequestBody ClientRequestDTO client) {
 		return clientService.createClientEntity(client);
 	}
 
 	@PutMapping("/modify/{id}")
-	public ClientReponse modifyClient(@PathVariable("id") int id, @RequestBody ClientRequest newClient) {
+	public ClientReponseDTO modifyClient(@PathVariable("id") int id, @RequestBody ClientRequestDTO newClient) {
 		return clientService.modifyClientEntity(id, newClient);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ClientReponse deleteClientById(@PathVariable("id")int id)
+	public ClientReponseDTO deleteClientById(@PathVariable("id")int id)
 	{
 		return clientService.deleteClientEntityById(id);
 	}
